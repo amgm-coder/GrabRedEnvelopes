@@ -42,22 +42,22 @@ public class RedPacketService {
      * 发红包
      *
      * @param userId
-     * @param total_amount 单位为分，不允许有小数点
-     * @param tal_packet
+     * @param totalAmount 单位为分，不允许有小数点
+     * @param talPacket
      * @return
      */
     @Transactional
-    public RedPacketInfo handOut(String userId, int total_amount, int tal_packet) {
+    public RedPacketInfo handOut(String userId, int totalAmount, int talPacket) {
         RedPacketInfo redPacketInfo = new RedPacketInfo();
         redPacketInfo.setRed_packet_id(genRedPacketId(userId));
         redPacketInfo.setId(redPacketInfo.getRed_packet_id());
-        redPacketInfo.setTotal_amount(total_amount);
-        redPacketInfo.setTotal_packet(tal_packet);
+        redPacketInfo.setTotal_amount(totalAmount);
+        redPacketInfo.setTotal_packet(talPacket);
         redPacketInfo.setUser_id(userId);
         redPacketInfoRepository.save(redPacketInfo);
 
-        redisUtil.set(redPacketInfo.getRed_packet_id() + TAL_PACKET, tal_packet + "");
-        redisUtil.set(redPacketInfo.getRed_packet_id() + TOTAL_AMOUNT, total_amount + "");
+        redisUtil.set(redPacketInfo.getRed_packet_id() + TAL_PACKET, talPacket + "");
+        redisUtil.set(redPacketInfo.getRed_packet_id() + TOTAL_AMOUNT, totalAmount + "");
 
         return redPacketInfo;
     }

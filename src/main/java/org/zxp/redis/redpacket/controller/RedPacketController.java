@@ -27,16 +27,15 @@ public class RedPacketController {
     /**
      * 发红包
      *
-     * @param user_id
-     * @param total_count
-     * @param totol_amount 单位元
+     * @param userId
+     * @param totalCount
+     * @param totalAmount 单位元
      * @return
      */
     @GetMapping("/hand_out")
-    public RedPacketInfo handOut(String user_id, int total_count, double totol_amount) {
-        return redPacketService.handOut(user_id, Integer.parseInt(totol_amount * 100 + ""), total_count);
+    public RedPacketInfo handOut(String userId, int totalCount, int totalAmount) {
+        return redPacketService.handOut(userId, totalAmount * 100 , totalCount);
     }
-
 
     /**
      * 抢红包
@@ -49,7 +48,6 @@ public class RedPacketController {
         String userId = "user_" + randomValuePropertySource.getProperty("random.int(10000)").toString();
         return redPacketService.grab(userId, redPacketId);
     }
-
 
     @Autowired
     RedPacketCallBackService redPacketCallBackService;
